@@ -11,6 +11,7 @@ const divContainer = document.querySelector(".container");
 let domandaUtente;
 /* verifico che l'utente inserisca 1 o 2 o 3 */
 let numero_celle = 0;
+let btn_reset = document.getElementById("reset");
 
 do {
 
@@ -48,15 +49,22 @@ generaBombe(1,cella_griglia.length);
 
 for (let i = 0; i < cella_griglia.length; i++) {
     const cella_singola = cella_griglia[i];
-
-        cella_singola.addEventListener("click", function () {
-        cella_singola.classList.add("blue");
-        if(bombs.includes(parseInt(cella_singola.textContent))) {
-            cella_singola.classList.remove("blue");
-            cella_singola.classList.add("red");
-        }
-            
-    })
+    
+        cella_singola.addEventListener("click", funzioneClick)
+       function funzioneClick() 
+            {   
+                cella_singola.classList.add("blue");
+                if(bombs.includes(parseInt(cella_singola.textContent))) {
+                    cella_singola.classList.remove("blue");
+                    cella_singola.classList.add("red");
+                    alert("hai preso una bomba!, hai perso... clicca il tasto di reset per ricominciare"); 
+                    btn_reset.style.display = "block";       
+                } 
+                btn_reset.addEventListener("click", function() {
+                    cella_singola.classList.remove("blue", "red");
+                    btn_reset.style.display = "none";
+                })  
+            }
 }
 /*  mi serve una lista di 16 bombe */
 
