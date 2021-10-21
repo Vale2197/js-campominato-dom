@@ -54,17 +54,23 @@ for (let i = 0; i < cella_griglia.length; i++) {
        function funzioneClick() 
             {   
                 cella_singola.classList.add("blue");
+
                 if(bombs.includes(parseInt(cella_singola.textContent))) {
-                    cella_singola.classList.remove("blue");
+                    /* cella_singola.classList.remove("blue"); */
                     cella_singola.classList.add("red");
                     alert("hai preso una bomba!, hai perso... clicca il tasto di reset per ricominciare"); 
-                    btn_reset.style.display = "block";       
+                    btn_reset.style.display = "block"; 
+                    console.log(controlloBombe(bombs, cella_singola, cella_griglia));
+
                 } 
                 btn_reset.addEventListener("click", function() {
                     cella_singola.classList.remove("blue", "red");
                     btn_reset.style.display = "none";
                 })  
-            }
+            }  
+       if (cella_singola.classList.contains("red")) {
+           console.log("contains");
+       }        
 }
 /*  mi serve una lista di 16 bombe */
 
@@ -77,7 +83,16 @@ console.log(bombs.toString());
 
 
 
-
+function controlloBombe (listabombe, listavalore, valore) {
+    for (let i = 0; i < listabombe.length - 1; i++) {
+        let bombaSingola = listabombe[i];
+        console.log(bombaSingola);
+       if (listavalore.includes(bombaSingola)) {
+           valore.classList.add("red");
+       }
+       console.log(valore);
+    }
+}
 
 
 
