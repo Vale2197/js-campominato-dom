@@ -45,7 +45,8 @@ let cella_griglia = document.querySelectorAll(".cella");
 console.log(cella_griglia.length);
 let bombs =[];
 generaBombe(1,cella_griglia.length);
-
+let index = 0;
+let listaMenoBombe = cella_griglia.length - 16;
 
 for (let i = 0; i < cella_griglia.length; i++) {
     const cella_singola = cella_griglia[i];
@@ -54,15 +55,20 @@ for (let i = 0; i < cella_griglia.length; i++) {
        function funzioneClick() 
             {   
                 cella_singola.classList.add("blue");
-
+                index++;
                 if(bombs.includes(parseInt(cella_singola.textContent))) {
                     /* cella_singola.classList.remove("blue"); */
                     cella_singola.classList.add("red");
                     alert("hai preso una bomba!, hai perso... clicca il tasto di reset per ricominciare"); 
+                    controlloBombe(cella_griglia, bombs);
                     btn_reset.style.display = "block"; 
-                    console.log(controlloBombe(bombs, cella_singola, cella_griglia));
+                   /*  console.log(controlloBombe(cella_griglia, bombs)); */
 
                 } 
+                else if (index == listaMenoBombe) {
+                    alert("you win!!");
+                    alert("clicca il tasto di reset per rigiocare");
+                }
                 btn_reset.addEventListener("click", function() {
                     cella_singola.classList.remove("blue", "red");
                     btn_reset.style.display = "none";
@@ -83,14 +89,23 @@ console.log(bombs.toString());
 
 
 
-function controlloBombe (listabombe, listavalore, valore) {
-    for (let i = 0; i < listabombe.length - 1; i++) {
-        let bombaSingola = listabombe[i];
-        console.log(bombaSingola);
-       if (listavalore.includes(bombaSingola)) {
-           valore.classList.add("red");
-       }
-       console.log(valore);
+
+
+
+
+function controlloBombe (listacelle, listabombe) {
+   /*  console.log(listabombe);
+    console.log(listacelle); */
+    for (let i = 0; i < listacelle.length; i++) {
+        let cella = listacelle[i];
+        console.log(cella);
+        let numeroCella = parseInt(cella.textContent);
+        console.log(numeroCella);
+
+        if (listabombe.includes(numeroCella)) {
+           cella.classList.add("red");
+        }
+        
     }
 }
 
