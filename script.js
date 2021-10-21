@@ -35,21 +35,32 @@ else if (domandaUtente == 3) {
     creazione_celle(numero_celle);
 }
 
-/* cella_griglia.addEventListener("click", function() {
-    cella_griglia.classList.add("red");  
-}); */
-
+/* 
+        PRENDO UNA SINGOLA CELLA DALLA LISTA DI CELLE, E GLI AGGIUNGO UN ADDEVENT.
+*/
 
 let cella_griglia = document.querySelectorAll(".cella");
-console.log(cella_griglia);
+
+console.log(cella_griglia.length);
+let bombs =[];
+generaBombe(1,cella_griglia.length);
+
 
 for (let i = 0; i < cella_griglia.length; i++) {
     const cella_singola = cella_griglia[i];
 
         cella_singola.addEventListener("click", function () {
         cella_singola.classList.add("blue");
+        if(bombs.includes(parseInt(cella_singola.textContent))) {
+            cella_singola.classList.remove("blue");
+            cella_singola.classList.add("red");
+        }
+            
     })
 }
+/*  mi serve una lista di 16 bombe */
+
+console.log(bombs.toString());
 
 
 
@@ -63,6 +74,24 @@ for (let i = 0; i < cella_griglia.length; i++) {
 
 
 
+
+
+
+
+
+
+
+/* funzione generabombe */
+function generaBombe (min, lunghezza_lista_celle) {
+    for (let i = 0; i < 16; i++) {
+       let element= numeroRandom(min , lunghezza_lista_celle); 
+       if(!bombs.includes(element))  
+        bombs.push(element); 
+       else
+        i--;
+    }
+
+}
 
 /* funzione che mi richiama n celle  */
 function creazione_celle (numero) {
@@ -74,6 +103,12 @@ function creazione_celle (numero) {
 
 }
 
+/* funzione numero random */
+function numeroRandom(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
 /* funzione verifica domanda utente */
 
 function verificaUtente () {
